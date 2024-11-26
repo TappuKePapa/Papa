@@ -1,1 +1,83 @@
+//Queue using Linkedlist
+#include <iostream>
+using namespace std;
 
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int data) {
+        this->data = data;
+        this->next = nullptr;
+    }
+};
+
+class Queue {
+private:
+    Node* front;
+    Node* rear;
+
+public:
+    Queue() {
+        front = nullptr;
+        rear = nullptr;
+    }
+
+    
+    void enqueue(int value) {
+        Node* newNode = new Node(value);
+        if (rear == nullptr) {
+            front = rear = newNode;
+            return;
+        }
+        rear->next = newNode;
+        rear = newNode;
+    }
+
+    
+    int dequeue() {
+        if (front == nullptr) {
+            cout << "Queue underflow" << endl;
+            return -1;
+        }
+        Node* temp = front;
+        front = front->next;
+        if (front == nullptr) {
+            rear = nullptr;
+        }
+        int dequeuedValue = temp->data;
+        delete temp;
+        return dequeuedValue;
+    }
+
+    
+    int peek() {
+        if (front == nullptr) {
+            cout << "Queue is empty" << endl;
+            return -1;
+        }
+        return front->data;
+    }
+
+    bool isEmpty() {
+        return front == nullptr;
+    }
+};
+
+int main() {
+    Queue queue;
+    queue.enqueue(10);
+    queue.enqueue(20);
+    queue.enqueue(30);
+
+    cout << "Front element: " << queue.peek() << endl;
+
+    cout << "Queue elements: ";
+    while (!queue.isEmpty()) {
+        cout << queue.dequeue() << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
