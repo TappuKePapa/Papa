@@ -1,1 +1,66 @@
+//Stack using Array
+#include <iostream>
+using namespace std;
+class Stack{
+private:
+     int* arr;
+     int top;
+     int maxSize;
+public:
 
+Stack(int size){
+arr = new int[size];
+maxSize = size;
+top = -1;
+}
+
+
+~Stack(){
+delete[] arr;
+}
+
+void push(int value){
+if (top >= maxSize - 1){
+cout << "Stack overflow" << endl;
+return;
+}
+arr[++top] = value;
+}
+
+
+int pop(){
+if (top < 0){
+cout << "Stack underflow" << endl;
+return -1;
+}
+return arr[top--];
+}
+
+
+int peek(){
+if (top < 0){
+cout << "Stack is empty" << endl;
+return -1;
+}
+return arr[top];
+}
+
+
+bool isEmpty(){
+return top < 0;
+}
+};
+
+int main(){
+Stack stack(5);
+stack.push(10);
+stack.push(20);
+stack.push(30);
+cout << "Top element: " << stack.peek() << endl;
+cout << "Stack elements: ";
+while (!stack.isEmpty()){
+cout << stack.pop() << " ";
+}
+cout << endl;
+return 0;
+}
